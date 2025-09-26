@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso ENEM Online</title>
+<style>
+body { font-family: Arial, sans-serif; margin:20px; background:#f5f5f5; }
+h1 { color:#FF6600; }
+button { padding:10px 15px; margin:5px; background:#FF6600; color:#fff; border:none; border-radius:5px; }
+.lesson { background:#fff; padding:15px; margin:10px 0; border-radius:5px; }
+</style>
+</head>
+<body>
+<h1>Curso ENEM Online</h1>
+<div id="lessons"></div>
+
+<script>
+async function loadLessons() {
+  const res = await fetch('lessons.json');
+  const lessons = await res.json();
+  const container = document.getElementById('lessons');
+  lessons.forEach((l, i) => {
+    const div = document.createElement('div');
+    div.className = 'lesson';
+    div.innerHTML = `<h2>${l.title}</h2>
+    <p>${l.text}</p>
+    <button onclick="playTTS(${i})">🎧 Ouvir Aula</button>
+    <button onclick="downloadPDF(${i})">📄 Baixar PDF</button>`;
+    container.appendChild(div);
+  });
+}
+
+function playTTS(index) {
+  alert('Aqui chamaria o TTS para a aula '+index);
+}
+
+function downloadPDF(index) {
+  window.open(`pdfs/lesson${index+1}.pdf`, '_blank');
+}
+
+loadLessons();
+</script>
+</body>
+</html>
+[
+  {"title":"Aula 1 - Introdução ao ENEM","text":"Nesta aula você vai entender como funciona a prova do ENEM, os tipos de questões e como se preparar para ter um bom desempenho. Dicas de estudo: organizar cronograma, revisar matérias diariamente e praticar simulados."},
+  {"title":"Aula 2 - Matemática","text":"Principais conteúdos: Álgebra, Geometria, Estatística e Probabilidade. Dicas de estudo: resolver questões anteriores, revisar fórmulas e praticar exercícios por tópicos."},
+  {"title":"Aula 3 - Português","text":"Revisão de gramática, interpretação de textos e redação. Dicas: ler textos diariamente, escrever redações e revisar regras gramaticais."}
+]
+[
+  {
+    "lesson":1,
+    "questions":[
+      {"q":"Qual é o peso da prova do ENEM?","a":["600 pontos","1000 pontos","800 pontos"],"correct":1},
+      {"q":"O que é exigido na redação?","a":["Opinião pessoal","Argumentação e coesão","Nada"],"correct":1}
+    ]
+  },
+  {
+    "lesson":2,
+    "questions":[
+      {"q":"Quanto é 2+2?","a":["3","4","5"],"correct":1}
+    ]
+  },
+  {
+    "lesson":3,
+    "questions":[
+      {"q":"O que é mais importante na interpretação de texto?","a":["Ler rápido","Compreender e analisar","Ignorar detalhes"],"correct":1}
+    ]
+  }
+]
+export const GEMINI_API_KEY = "AIzaSyDRmmtjACcMOlFKnOlgHtDaUThCv3J1MIs";
